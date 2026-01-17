@@ -2,8 +2,7 @@
 
 [ext_resource type="Script" uid="uid://crmfwwovgbds0" path="res://ui/widgets/module_widget.gd" id="1_glg32"]
 
-[node name="ModuleWidget" type="Control"]
-layout_mode = 3
+[node name="ModuleWidget" type="VBoxContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -11,17 +10,21 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_glg32")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="ExecuteButton" type="Button" parent="HBoxContainer"]
+[node name="Header" type="HBoxContainer" parent="."]
 layout_mode = 2
-text = "button"
 
-[node name="StateLabel" type="Label" parent="HBoxContainer"]
+[node name="NameLabel" type="Label" parent="Header"]
+layout_mode = 2
+
+[node name="ModeOption" type="OptionButton" parent="Header"]
+layout_mode = 2
+
+[node name="StateLabel" type="Label" parent="."]
 layout_mode = 2
 text = "label"
 
-[connection signal="pressed" from="HBoxContainer/ExecuteButton" to="." method="_on_execute_button_pressed"]
+[node name="ExecuteButton" type="Button" parent="."]
+layout_mode = 2
+text = "button"
+
+[connection signal="pressed" from="ExecuteButton" to="." method="_on_execute_button_pressed"]

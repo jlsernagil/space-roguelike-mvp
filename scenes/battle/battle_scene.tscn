@@ -2,46 +2,122 @@
 
 [ext_resource type="Script" uid="uid://co8i1yn4urmxd" path="res://gameplay/battle/battle_controller.gd" id="1_6iigb"]
 [ext_resource type="PackedScene" uid="uid://7v7r7syci7t5" path="res://scenes/battle/player_ship.tscn" id="2_pu738"]
-[ext_resource type="Script" uid="uid://sr8w26yrauuy" path="res://ui/screens/hud.gd" id="3_pu738"]
+[ext_resource type="Script" uid="uid://cj1pmanfsxwq8" path="res://ui/screens/ship_panel.gd" id="3_ugm31"]
 
 [node name="BattleScene" type="Node2D"]
 
 [node name="BattleController" type="Node" parent="."]
 script = ExtResource("1_6iigb")
 
-[node name="Entities" type="Node2D" parent="."]
+[node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Enemies" type="Node2D" parent="Entities"]
-
-[node name="PlayerShip" parent="Entities" instance=ExtResource("2_pu738")]
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-offset = Vector2(-100, -100)
-transform = Transform2D(1, 0, 0, 1, -100, -100)
-
-[node name="HUD" type="Control" parent="CanvasLayer"]
-process_mode = 3
+[node name="RootUI" type="Control" parent="UI"]
 layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HSplitContainer" type="HSplitContainer" parent="UI/RootUI"]
+layout_direction = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+split_offset = 360
+
+[node name="ShipPanel" type="Control" parent="UI/RootUI/HSplitContainer"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+
+[node name="Panel" type="PanelContainer" parent="UI/RootUI/HSplitContainer/ShipPanel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_ugm31")
+
+[node name="VBox" type="VBoxContainer" parent="UI/RootUI/HSplitContainer/ShipPanel/Panel"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="UI/RootUI/HSplitContainer/ShipPanel/Panel/VBox"]
+layout_mode = 2
+text = "SHIP"
+
+[node name="ShipStats" type="Label" parent="UI/RootUI/HSplitContainer/ShipPanel/Panel/VBox"]
+layout_mode = 2
+
+[node name="ModulesTitle" type="Label" parent="UI/RootUI/HSplitContainer/ShipPanel/Panel/VBox"]
+layout_mode = 2
+text = "MODULES"
+
+[node name="ModulesBox" type="VBoxContainer" parent="UI/RootUI/HSplitContainer/ShipPanel/Panel/VBox"]
+layout_mode = 2
+
+[node name="Hint" type="Label" parent="UI/RootUI/HSplitContainer/ShipPanel/Panel/VBox"]
+layout_mode = 2
+text = "HINT"
+
+[node name="BattlePanel" type="Control" parent="UI/RootUI/HSplitContainer"]
+layout_mode = 2
+
+[node name="Panel" type="PanelContainer" parent="UI/RootUI/HSplitContainer/BattlePanel"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="UI/RootUI/HSplitContainer/BattlePanel/Panel"]
+layout_mode = 2
+stretch = true
+
+[node name="BattleViewport" type="SubViewport" parent="UI/RootUI/HSplitContainer/BattlePanel/Panel/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(780, 648)
+render_target_update_mode = 4
+
+[node name="World" type="Node2D" parent="UI/RootUI/HSplitContainer/BattlePanel/Panel/SubViewportContainer/BattleViewport"]
+process_mode = 3
+
+[node name="Camera2D" type="Camera2D" parent="UI/RootUI/HSplitContainer/BattlePanel/Panel/SubViewportContainer/BattleViewport/World"]
+ignore_rotation = false
+limit_enabled = false
+limit_left = 0
+limit_top = 0
+limit_right = 1152
+limit_bottom = 648
+
+[node name="Entities" type="Node2D" parent="UI/RootUI/HSplitContainer/BattlePanel/Panel/SubViewportContainer/BattleViewport/World"]
+
+[node name="Enemies" type="Node2D" parent="UI/RootUI/HSplitContainer/BattlePanel/Panel/SubViewportContainer/BattleViewport/World/Entities"]
+
+[node name="PlayerShip" parent="UI/RootUI/HSplitContainer/BattlePanel/Panel/SubViewportContainer/BattleViewport/World/Entities" instance=ExtResource("2_pu738")]
+
+[node name="FX" type="Node2D" parent="UI/RootUI/HSplitContainer/BattlePanel/Panel/SubViewportContainer/BattleViewport/World"]
+
+[node name="BattleHudOverlay" type="Control" parent="UI/RootUI/HSplitContainer/BattlePanel"]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("3_pu738")
 
-[node name="HudLabel" type="Label" parent="CanvasLayer/HUD"]
+[node name="BattleStats" type="Label" parent="UI/RootUI/HSplitContainer/BattlePanel/BattleHudOverlay"]
 layout_mode = 0
-offset_right = 40.0
+offset_left = -12.0
+offset_right = 33.0
 offset_bottom = 23.0
 text = "<live>"
 
-[node name="Button" type="Button" parent="CanvasLayer/HUD"]
+[node name="PauseButton" type="Button" parent="UI/RootUI/HSplitContainer/BattlePanel/BattleHudOverlay"]
 layout_mode = 0
-offset_left = -8.0
+offset_left = -20.0
 offset_top = 30.0
-offset_right = 69.0
+offset_right = 57.0
 offset_bottom = 61.0
 text = "<PAUSE>"
 
-[node name="ModuleBox" type="VBoxContainer" parent="CanvasLayer/HUD"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[connection signal="pressed" from="UI/RootUI/HSplitContainer/BattlePanel/BattleHudOverlay/PauseButton" to="BattleController" method="_on_pause_button_pressed"]
