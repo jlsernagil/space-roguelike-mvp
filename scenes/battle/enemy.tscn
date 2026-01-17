@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://cug8h747tx5sk"]
+
+[ext_resource type="Script" uid="uid://he76lqqv3pag" path="res://gameplay/ship/enemy.gd" id="1_oqxvf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hl81b"]
+radius = 15.033297
+
+[node name="Enemy" type="Node2D"]
+script = ExtResource("1_oqxvf")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(24, 24)
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+color = Color(1, 0.23137255, 0.16470589, 1)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_hl81b")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

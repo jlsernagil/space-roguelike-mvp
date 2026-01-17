@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvgu8jena872j"]
+
+[ext_resource type="PackedScene" uid="uid://br8rl1qu6tr75" path="res://scenes/ui/module_widget.tscn" id="1_0mwgc"]
+
+[node name="Hud" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_right = 92.0
+offset_bottom = 52.0
+text = "PAUSE"
+
+[node name="ModuleWidget1" parent="." instance=ExtResource("1_0mwgc")]
+layout_mode = 1
+
+[node name="ModuleWidget2" parent="." instance=ExtResource("1_0mwgc")]
+layout_mode = 1
+
+[node name="ModuleWidget3" parent="." instance=ExtResource("1_0mwgc")]
+layout_mode = 1

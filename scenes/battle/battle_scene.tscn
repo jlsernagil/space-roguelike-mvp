@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3 uid="uid://ycq3dwafvokb"]
+
+[ext_resource type="Script" uid="uid://co8i1yn4urmxd" path="res://gameplay/battle/battle_controller.gd" id="1_6iigb"]
+[ext_resource type="PackedScene" uid="uid://7v7r7syci7t5" path="res://scenes/battle/player_ship.tscn" id="2_pu738"]
+[ext_resource type="Script" uid="uid://sr8w26yrauuy" path="res://ui/screens/hud.gd" id="3_pu738"]
+
+[node name="BattleScene" type="Node2D"]
+
+[node name="BattleController" type="Node" parent="."]
+script = ExtResource("1_6iigb")
+
+[node name="Entities" type="Node2D" parent="."]
+
+[node name="Enemies" type="Node2D" parent="Entities"]
+
+[node name="PlayerShip" parent="Entities" instance=ExtResource("2_pu738")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+offset = Vector2(-100, -100)
+transform = Transform2D(1, 0, 0, 1, -100, -100)
+
+[node name="HUD" type="Control" parent="CanvasLayer"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_pu738")
+
+[node name="HudLabel" type="Label" parent="CanvasLayer/HUD"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "<live>"
+
+[node name="Button" type="Button" parent="CanvasLayer/HUD"]
+layout_mode = 0
+offset_left = -8.0
+offset_top = 30.0
+offset_right = 69.0
+offset_bottom = 61.0
+text = "<PAUSE>"
+
+[node name="ModuleBox" type="VBoxContainer" parent="CanvasLayer/HUD"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
